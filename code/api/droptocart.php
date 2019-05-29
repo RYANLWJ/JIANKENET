@@ -26,7 +26,7 @@ $total =round($total,2);
 // FIXME 保留两位小数还没做
 
 
-$sql3 = "SELECT * FROM cartdata"; //查询订单数据库人的数据
+$sql3 = "SELECT * FROM cartdata WHERE username = '$user'"; //查询订单数据库人的数据
 $res3 = $connection->query($sql3); //执行查询语句
 $content3 = $res3->fetch_all(MYSQLI_ASSOC); //拿数据
 
@@ -57,6 +57,8 @@ if($del=='yes'){
     $res5 = $connection->query($sql5);//执行删除语句
     $res4 = $connection->query($sql4);
     $content4 = $res4->fetch_all(MYSQLI_ASSOC); //拿更新的最新的数据
+    $res3 = $connection->query($sql3); //执行查询语句
+$content3 = $res3->fetch_all(MYSQLI_ASSOC); //拿数据
 }
 
 

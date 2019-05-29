@@ -17,9 +17,13 @@ $(function () {
 
     // NOTE 获取数据库相应的数据
     var $p = new Promise(function (resolve) {
+        var $username = getCookie('username');
         $.ajax({
             type: 'post',
             url: '../api/droptocart.php',
+            data:{
+                'username':$username,
+            },
             dataType: 'json',
             success: function (str) {
                 resolve(str);
@@ -44,7 +48,7 @@ $(function () {
         var newarr = str.orderdata;
         var $res = newarr.map(item => {
             return `
-            <li class="item clearfix">
+            <li class="item clearfix" data-id="${item.idname}">
             <dt class="fl choose">
                 <input type="checkbox" name="user" class="check">
             </dt>
@@ -73,7 +77,7 @@ $(function () {
             </dd>
             <dd class="fl fav">
                 <a href="###">移入收藏夹</a>
-                <a href="###">删除</a>
+                <a href="###" class="delete">删除</a>
             </dd>
            
          </li>  
@@ -142,7 +146,57 @@ $(function () {
             }
 
 
+
+
+
+
+
+
+         
+
+
+
+
         })
+
+           // 删除单个商品
+
+           $('.delete').click(function(){
+               if(confirm('确认删除吗')){
+                var $thisId=$(this).parent().parent('.item').attr('data-id');
+                var $p2 = new Promise(function (resolve) {
+                    $.ajax({
+                        type: 'post',
+                        url: '../api/droptocart.php',
+                        data:{
+                            'idname':$thisId,//这个商品ID
+                            'username':$username,//用户名
+                            'del':'yes'
+                        },
+                        dataType: 'json',
+                        success: function (str) {
+                            resolve(str);
+                        }
+                    })
+            
+            
+            
+                })
+            
+                $p2.then(function (str) {
+                    console.log(str)
+                    create(str); //渲染
+                    // console.log(11111)
+                //    tolPrice();
+                //    location.reload(true)//刷新页面   
+            
+                })
+               }
+            
+            
+        })
+
+
 
         // NOTE 底部提交订单的数据显示
 

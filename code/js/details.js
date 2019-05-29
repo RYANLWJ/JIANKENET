@@ -215,9 +215,10 @@ $(function () {
 
     //NOTE 加入购物车功能
 
-    function dropToCart() {
+    function dropToCart() { //放入购物车涉及的功能,数量增减,统计小计
+        var $val =1;
         // FIXME 非空/数量不能是负数/弄成一个点击事件两个功能
-        var $val = $('#quan-input').val();
+        $val = $('#quan-input').val();
         // 增加件数
         $('#goods-show-wrap .add').click(function () {
             var $val = $('#quan-input').val();
@@ -231,7 +232,7 @@ $(function () {
         })
         // 减少件数
         $('#goods-show-wrap .dec').click(function () {
-            var $val = $('#quan-input').val();
+            $val = $('#quan-input').val();
             if ($val > 1) {
                 $val--;
                 $('#quan-input').val($val);
@@ -256,7 +257,7 @@ $(function () {
 
 
         $('#goods-show-wrap .cart-btn').click(function () {
-            var $val = $('#quan-input').val(); //加入购物车时拿到当前用户输入的购买件数
+            $val = $('#quan-input').val(); //加入购物车时拿到当前用户输入的购买件数
             if ($val >= 1) { //确保用户输入的购买数量最少为1件
 
                 if (getCookie('username')) { //登陆了才能点击加入购物车
@@ -295,6 +296,7 @@ $(function () {
         })
 
         function getOrderData(isok, del) {
+            console.log($val)
             var $username = getCookie('username');
             var $p2 = new Promise(function (resolve) {
                 $.ajax({
