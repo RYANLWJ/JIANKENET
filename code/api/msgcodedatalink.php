@@ -7,9 +7,6 @@ $Code = isset($_POST['msg_Code']) ? $_POST['msg_Code'] : '';
 
 
 
-
-
-
 $url = "http://v.juhe.cn/sms/send";
 $params = array(
     'key' => 'c0570ef0cf102c596043aee5b9bddb16', //您申请的APPKEY
